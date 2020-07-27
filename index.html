@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/it.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script id="template-film" type="text/x-handlebars-template">
+      <div class="film-info">
+        <ul>
+          <li>{{titolo}}</li>
+          <li>{{titoloOriginale}}</li>
+          <li>{{lingua}}</li>
+          <li>{{voto}}</li>
+        </ul>
+      </div>
+
+    </script>
+
+    <title>Boolflix</title>
+  </head>
+  <body>
+    <input id="cerca-film" type="text" name="ricerca-film" value="">
+    <button id="btn-film" type="button" name="button">CERCA</button>
+
+    <div id="target-film-container" class="film-container">
+
+    </div>
+
+
+    <script src="script.js" charset="utf-8"></script>
+  </body>
+</html>
