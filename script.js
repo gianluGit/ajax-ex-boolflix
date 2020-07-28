@@ -6,8 +6,11 @@ function searchInInput() {
   searchBtn.click(function() {
     callApiForFilm();
     callApiForTv();
+
   });
 }
+
+
 
 function callApiForFilm() {
   var valueInput = $('#cerca-film').val();
@@ -45,7 +48,7 @@ function printFilm(movies) {
   var compiled = Handlebars.compile(template);
   var target = $('#target-film-container');
 
-  // target.html('');
+  target.html('');
   for (var i = 0; i < movies.length; i++) {
     var filmInfoHTML = compiled({
       'titolo': 'Title: ' + movies[i]['title'],
@@ -64,30 +67,7 @@ function printFilm(movies) {
 
 
   }
-  // stelle
-  var valutazione0 = $('li[data-vote="0"]');
-  var valutazione1 = $('li[data-vote="1"]');
-  var valutazione2 = $('li[data-vote="2"]');
-  var valutazione3 = $('li[data-vote="3"]');
-  var valutazione4 = $('li[data-vote="4"]');
-  var valutazione5 = $('li[data-vote="5"]');
-
-  valutazione0.append('Vote not available');
-  valutazione1.append('<i class="fas fa-star"></i>');
-  valutazione2.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i>');
-  valutazione3.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>')
-  valutazione4.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>');
-  valutazione5.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>');
-
-  // bandiere
-  var flagEn = $('li[data-flag="en"]');
-  var flagIt = $('li[data-flag="it"]');
-  var flagJa = $('li[data-flag="ja"]');
-
-  flagEn.html('Original language: ' + ' <img class="flag" src="img/eng.jpg" alt="flag">');
-  flagJa.html('Original language: ' + ' <img class="flag" src="img/jp.jpg" alt="flag">');
-  flagIt.html('Original language: ' + ' <img class="flag" src="img/ita.jpg" alt="flag">');
-
+  ratingsAndFlagsforFilm();
 }
 
 function callApiForTv() {
@@ -125,11 +105,11 @@ function callApiForTv() {
 
 
 function printTvSeries(tvSeries) {
-  var templateTv = $('#template-Tv').html();
-  var compiled = Handlebars.compile(templateTv);
-  var targetTv = $('#target-film-container');
+  var template = $('#template-Tv').html();
+  var compiled = Handlebars.compile(template);
+  var target = $('#target-film-container');
 
-  targetTv.html('');
+  // target.html('');
   for (var i = 0; i < tvSeries.length; i++) {
     var tvHTML = compiled({
       'titolo': 'Title: ' + tvSeries[i]['name'],
@@ -143,11 +123,17 @@ function printTvSeries(tvSeries) {
 
 
 
-    targetTv.append(tvHTML);
+    target.append(tvHTML);
 
 
 
   }
+
+  ratingsAndFlagsforTv();
+}
+
+// funzione per assegnare stelle e bandiera ai film dove disponibile
+function ratingsAndFlagsforFilm() {
   // stelle
   var valutazione0 = $('li[data-vote="0"]');
   var valutazione1 = $('li[data-vote="1"]');
@@ -175,10 +161,32 @@ function printTvSeries(tvSeries) {
 }
 
 
+// funzione per assegnare stelle e bandiera alle serie tv dove disponibile
+function ratingsAndFlagsforTv() {
+  var valutazione0 = $('li[data-votetv="0"]');
+  var valutazione1 = $('li[data-votetv="1"]');
+  var valutazione2 = $('li[data-votetv="2"]');
+  var valutazione3 = $('li[data-votetv="3"]');
+  var valutazione4 = $('li[data-votetv="4"]');
+  var valutazione5 = $('li[data-votetv="5"]');
 
+  valutazione0.append('Vote not available');
+  valutazione1.append('<i class="fas fa-star"></i>');
+  valutazione2.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i>');
+  valutazione3.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>')
+  valutazione4.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>');
+  valutazione5.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>');
 
+  // bandiere
+  var flagEn = $('li[data-flagtv="en"]');
+  var flagIt = $('li[data-flagtv="it"]');
+  var flagJa = $('li[data-flagtv="ja"]');
 
+  flagEn.html('Original language: ' + ' <img class="flag" src="img/eng.jpg" alt="flag">');
+  flagJa.html('Original language: ' + ' <img class="flag" src="img/jp.jpg" alt="flag">');
+  flagIt.html('Original language: ' + ' <img class="flag" src="img/ita.jpg" alt="flag">');
 
+}
 
 
 
@@ -188,5 +196,6 @@ function printTvSeries(tvSeries) {
 
 
 $(document).ready(function() {
-  searchInInput()
+  searchInInput();
+
 });
