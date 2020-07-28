@@ -16,13 +16,22 @@ input {
   flex-wrap: wrap;
 }
 
-.film-container .film-info {
+.film-container .film-info, .film-container .tv-info {
   width: calc(100% / 6);
   height: calc(100% / 3);
   border: 1px solid black;
 }
 
-.film-info ul li {
+.film-info ul li, .tv-info ul li {
   list-style: none;
   margin-bottom: 10px;
+}
+
+.fa-star {
+  color: gold;
+}
+
+img.flag {
+  width: 30px;
+  height: 20px;
 }

@@ -15,8 +15,23 @@
         <ul>
           <li>{{titolo}}</li>
           <li>{{titoloOriginale}}</li>
-          <li>{{lingua}}</li>
-          <li>{{voto}}</li>
+          <li data-flag='{{nazione}}'>{{lingua}}</li>
+          <li data-vote='{{valutazione}}'>
+            {{voto}}
+          </li>
+        </ul>
+      </div>
+    </script>
+
+    <script id="template-Tv" type="text/x-handlebars-template">
+      <div class="tv-info">
+        <ul>
+          <li>{{titolo}}</li>
+          <li>{{titoloOriginale}}</li>
+          <li data-flag='{{nazione}}'>{{lingua}}</li>
+          <li data-vote='{{valutazione}}'>
+            {{voto}}
+          </li>
         </ul>
       </div>
 
@@ -25,11 +40,10 @@
     <title>Boolflix</title>
   </head>
   <body>
-    <input id="cerca-film" type="text" name="ricerca-film" value="">
+    <input id="cerca-film" type="text" name="ricerca-film" value="" placeholder="Search film or tv-series">
     <button id="btn-film" type="button" name="button">CERCA</button>
 
     <div id="target-film-container" class="film-container">
-
     </div>
 
 
