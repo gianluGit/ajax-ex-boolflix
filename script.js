@@ -4,18 +4,23 @@ function searchInInput() {
   var searchBtn = $('#btn-film');
 
   searchBtn.click(function() {
+    var valueInput = $('#cerca-film').val();
+    var target = $('#target-film-container');
+    target.text('');
 
 
-    callApiForFilm();
-    callApiForTv();
+    callApiForFilm(valueInput);
+    callApiForTv(valueInput);
+
+    $('#cerca-film').val('');
 
   });
 }
 
 
 
-function callApiForFilm() {
-  var valueInput = $('#cerca-film').val();
+function callApiForFilm(valueInput) {
+
 
 
   $.ajax({
@@ -28,11 +33,9 @@ function callApiForFilm() {
     success: function(data, state) {
       var movies = data['results'];
 
-      // console.log(data);
       console.log(movies);
 
       printFilm(movies);
-      $('#cerca-film').val('');
 
 
     },
@@ -50,10 +53,12 @@ function printFilm(movies) {
   var compiled = Handlebars.compile(template);
   var target = $('#target-film-container');
 
-  target.html('');
   for (var i = 0; i < movies.length; i++) {
     var movie = movies[i];
     var vote = Math.ceil(movie['vote_average'] / 2);
+
+    var poster = movie['poster_path'];
+    movie['cover'] = '<img class="cover-img" alt="image not found" src="https://image.tmdb.org/t/p/w342' + poster + '">'
 
     movie['stars'] = ratings(vote);
 
@@ -68,8 +73,7 @@ function printFilm(movies) {
   }
 }
 
-function callApiForTv() {
-  var valueInput = $('#cerca-film').val();
+function callApiForTv(valueInput) {
 
   $.ajax({
     url: 'https://api.themoviedb.org/3/search/tv',
@@ -81,11 +85,9 @@ function callApiForTv() {
     success: function(data, state) {
       var tvSeries = data['results'];
 
-      // console.log(data);
       console.log(tvSeries);
 
       printTvSeries(tvSeries);
-      // $('#cerca-film').val('');
 
 
     },
@@ -107,9 +109,12 @@ function printTvSeries(tvSeries) {
   var compiled = Handlebars.compile(template);
   var target = $('#target-film-container');
 
-  // target.html('');
   for (var i = 0; i < tvSeries.length; i++) {
     var serie = tvSeries[i];
+
+    var poster = serie['poster_path'];
+    serie['cover'] = '<img class="cover-img" alt="image not found" src="https://image.tmdb.org/t/p/w342' + poster + '">'
+
 
     var vote = Math.ceil(serie['vote_average'] / 2);
     serie['stars'] = ratings(vote);

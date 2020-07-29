@@ -9,26 +9,40 @@
     <link rel="stylesheet" href="style.css">
 
     <script id="template-film" type="text/x-handlebars-template">
-      <div class="film-info">
-        <ul>
-          <li>Title: {{title}}</li>
-          <li>Original title: {{original_title}}</li>
-          <li>Language: {{{flag}}}</li>
-          <li>Vote: {{{stars}}}</li>
-        </ul>
+      <div class="poster">
+        {{{cover}}}
+        <div class="info">
+          <h4>Movie</h4>
+          <ul>
+            <li>Title: {{title}}</li>
+            <li>Original title: {{original_title}}</li>
+            <li>Language: {{{flag}}}</li>
+            <li>Vote: {{{stars}}}</li>
+          </ul>
+        </div>
+
       </div>
+
     </script>
 
     <script id="template-Tv" type="text/x-handlebars-template">
-      <div class="tv-info">
-        <ul>
-          <li>Title: {{name}}</li>
-          <li>Original title: {{original_name}}</li>
-          <li>Language: {{{flag}}}</li>
-          <li>Vote: {{{stars}}}</li>
+      <div class="poster">
+        {{{cover}}}
+        <div class="layover">
+        </div>
 
-        </ul>
+        <div class="info">
+          <h4>Serie</h4>
+          <ul>
+            <li>Title: {{name}}</li>
+            <li>Original title: {{original_name}}</li>
+            <li>Language: {{{flag}}}</li>
+            <li>Vote: {{{stars}}}</li>
+          </ul>
+        </div>
+
       </div>
+
 
     </script>
 

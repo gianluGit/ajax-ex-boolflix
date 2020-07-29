@@ -17,15 +17,50 @@ input {
   overflow-y: auto;
 }
 
-.film-container .film-info, .film-container .tv-info {
-  width: calc(100% / 6);
+.film-container .poster {
+  width: calc(100% / 8);
   height: calc(100% / 3);
   border: 1px solid black;
+  position: relative;
 }
 
-.film-info ul li, .tv-info ul li {
+.cover-img {
+  width: 100%;
+  height: 100%;
+}
+
+.layover {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+}
+
+.info {
+  position: absolute;
+  top: 10px;
+  left: 5px;
+
+  color: #fff;
+
+  display: none;
+
+}
+
+.poster:hover .info, .poster:hover .layover {
+  display: block;
+}
+
+
+
+.info ul li {
   list-style: none;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .fas {
