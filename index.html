@@ -5,20 +5,16 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/locale/it.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
 
     <script id="template-film" type="text/x-handlebars-template">
       <div class="film-info">
         <ul>
-          <li>{{titolo}}</li>
-          <li>{{titoloOriginale}}</li>
-          <li data-flag='{{nazione}}'>{{lingua}}</li>
-          <li data-vote='{{valutazione}}'>
-            {{voto}}
-          </li>
+          <li>Title: {{title}}</li>
+          <li>Original title: {{original_title}}</li>
+          <li>Language: {{{flag}}}</li>
+          <li>Vote: {{{stars}}}</li>
         </ul>
       </div>
     </script>
@@ -26,12 +22,11 @@
     <script id="template-Tv" type="text/x-handlebars-template">
       <div class="tv-info">
         <ul>
-          <li>{{titolo}}</li>
-          <li>{{titoloOriginale}}</li>
-          <li data-flagtv='{{nazione}}'>{{lingua}}</li>
-          <li data-votetv='{{valutazione}}'>
-            {{voto}}
-          </li>
+          <li>Title: {{name}}</li>
+          <li>Original title: {{original_name}}</li>
+          <li>Language: {{{flag}}}</li>
+          <li>Vote: {{{stars}}}</li>
+
         </ul>
       </div>
 

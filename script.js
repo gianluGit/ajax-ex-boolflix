@@ -4,6 +4,8 @@ function searchInInput() {
   var searchBtn = $('#btn-film');
 
   searchBtn.click(function() {
+
+
     callApiForFilm();
     callApiForTv();
 
@@ -50,24 +52,20 @@ function printFilm(movies) {
 
   target.html('');
   for (var i = 0; i < movies.length; i++) {
-    var filmInfoHTML = compiled({
-      'titolo': 'Title: ' + movies[i]['title'],
-      'titoloOriginale': 'Original title: ' + movies[i]['original_title'],
-      'lingua': 'Original language: ' + movies[i]['original_language'],
-      'voto': 'Vote: ',  //Math.floor(value[i]['vote_average'] / 2),  //ho fatto in modo che la valutazione vada da 1 a 5 anzichè da 1 a 10
-      'valutazione': Math.floor(movies[i]['vote_average'] / 2),
-      'nazione': movies[i]['original_language']
+    var movie = movies[i];
+    var vote = Math.ceil(movie['vote_average'] / 2);
 
-    });
+    movie['stars'] = ratings(vote);
 
+    var lang = movie['original_language'];
+    movie['flag'] = flags(lang);
 
-
+    var filmInfoHTML = compiled(movie);
     target.append(filmInfoHTML);
 
 
 
   }
-  ratingsAndFlagsforFilm();
 }
 
 function callApiForTv() {
@@ -87,7 +85,7 @@ function callApiForTv() {
       console.log(tvSeries);
 
       printTvSeries(tvSeries);
-      $('#cerca-film').val('');
+      // $('#cerca-film').val('');
 
 
     },
@@ -111,86 +109,48 @@ function printTvSeries(tvSeries) {
 
   // target.html('');
   for (var i = 0; i < tvSeries.length; i++) {
-    var tvHTML = compiled({
-      'titolo': 'Title: ' + tvSeries[i]['name'],
-      'titoloOriginale': 'Original title: ' + tvSeries[i]['original_name'],
-      'lingua': 'Original language: ' + tvSeries[i]['original_language'],
-      'voto': 'Vote: ', //Math.floor(tvSeries[i]['vote_average'] / 2),
-      'valutazione': Math.floor(tvSeries[i]['vote_average'] / 2),
-      'nazione': tvSeries[i]['original_language']
+    var serie = tvSeries[i];
 
-    });
+    var vote = Math.ceil(serie['vote_average'] / 2);
+    serie['stars'] = ratings(vote);
 
+    var lang = serie['original_language'];
+    serie['flag'] = flags(lang);
 
-
+    var tvHTML = compiled(serie)
     target.append(tvHTML);
 
 
 
   }
 
-  ratingsAndFlagsforTv();
-}
-
-// funzione per assegnare stelle e bandiera ai film dove disponibile
-function ratingsAndFlagsforFilm() {
-  // stelle
-  var valutazione0 = $('li[data-vote="0"]');
-  var valutazione1 = $('li[data-vote="1"]');
-  var valutazione2 = $('li[data-vote="2"]');
-  var valutazione3 = $('li[data-vote="3"]');
-  var valutazione4 = $('li[data-vote="4"]');
-  var valutazione5 = $('li[data-vote="5"]');
-
-  valutazione0.append('Vote not available');
-  valutazione1.append('<i class="fas fa-star"></i>');
-  valutazione2.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i>');
-  valutazione3.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>')
-  valutazione4.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>');
-  valutazione5.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>');
-
-  // bandiere
-  var flagEn = $('li[data-flag="en"]');
-  var flagIt = $('li[data-flag="it"]');
-  var flagJa = $('li[data-flag="ja"]');
-
-  flagEn.html('Original language: ' + ' <img class="flag" src="img/eng.jpg" alt="flag">');
-  flagJa.html('Original language: ' + ' <img class="flag" src="img/jp.jpg" alt="flag">');
-  flagIt.html('Original language: ' + ' <img class="flag" src="img/ita.jpg" alt="flag">');
-
-}
-
-
-// funzione per assegnare stelle e bandiera alle serie tv dove disponibile
-function ratingsAndFlagsforTv() {
-  var valutazione0 = $('li[data-votetv="0"]');
-  var valutazione1 = $('li[data-votetv="1"]');
-  var valutazione2 = $('li[data-votetv="2"]');
-  var valutazione3 = $('li[data-votetv="3"]');
-  var valutazione4 = $('li[data-votetv="4"]');
-  var valutazione5 = $('li[data-votetv="5"]');
-
-  valutazione0.append('Vote not available');
-  valutazione1.append('<i class="fas fa-star"></i>');
-  valutazione2.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i>');
-  valutazione3.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>')
-  valutazione4.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>');
-  valutazione5.append('<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>');
-
-  // bandiere
-  var flagEn = $('li[data-flagtv="en"]');
-  var flagIt = $('li[data-flagtv="it"]');
-  var flagJa = $('li[data-flagtv="ja"]');
-
-  flagEn.html('Original language: ' + ' <img class="flag" src="img/eng.jpg" alt="flag">');
-  flagJa.html('Original language: ' + ' <img class="flag" src="img/jp.jpg" alt="flag">');
-  flagIt.html('Original language: ' + ' <img class="flag" src="img/ita.jpg" alt="flag">');
-
 }
 
 
 
 
+function ratings(vote) {
+  var starsHTML = '';
+
+  for (var k = 0; k < 5; k++) {
+    if (k < vote) {
+      starsHTML += '<i class="fas fa-star"></i>'
+    } else {
+      starsHTML += '<i class="far fa-star"></i>'
+    }
+  }
+  return starsHTML;
+
+}
+
+function flags(lang) {
+  if (lang == 'en' || lang == 'it' || lang == 'ja') {
+    return `<img class='flag' src="img/${lang}.jpg">`;
+  }
+
+  return lang
+
+}
 
 
 
