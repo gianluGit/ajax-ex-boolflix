@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -10,14 +11,19 @@
 
     <script id="template-film" type="text/x-handlebars-template">
       <div class="poster">
-        {{{cover}}}
+        {{{poster}}}
+
+        <div class="layover">
+        </div>
+
         <div class="info">
           <h4>Movie</h4>
           <ul>
-            <li>Title: {{title}}</li>
-            <li>Original title: {{original_title}}</li>
-            <li>Language: {{{flag}}}</li>
-            <li>Vote: {{{stars}}}</li>
+            <li><span>Title:</span> {{title}}</li>
+            <li><span>Original title:</span> {{original_title}}</li>
+            <li><span>Language:</span> {{{flag}}}</li>
+            <li><span>Vote:</span> {{{stars}}}</li>
+            <li><span>Overview:</span> {{{text_overview}}}</li>
           </ul>
         </div>
 
@@ -27,33 +33,46 @@
 
     <script id="template-Tv" type="text/x-handlebars-template">
       <div class="poster">
-        {{{cover}}}
+        {{{poster}}}
         <div class="layover">
         </div>
 
         <div class="info">
           <h4>Serie</h4>
           <ul>
-            <li>Title: {{name}}</li>
-            <li>Original title: {{original_name}}</li>
-            <li>Language: {{{flag}}}</li>
-            <li>Vote: {{{stars}}}</li>
+            <li><span>Title:</span> {{name}}</li>
+            <li><span>Original title:</span> {{original_name}}</li>
+            <li><span>Language:</span> {{{flag}}}</li>
+            <li><span>Vote:</span> {{{stars}}}</li>
+            <li><span>Overview:</span> {{{text_overview}}}</li>
           </ul>
         </div>
 
       </div>
-
 
     </script>
 
     <title>Boolflix</title>
   </head>
   <body>
-    <input id="cerca-film" type="text" name="ricerca-film" value="" placeholder="Search film or tv-series">
-    <button id="btn-film" type="button" name="button">CERCA</button>
+    <header>
+      <div class="header-content">
+        <div class="header-title">
+          <a id="title-page" href="#"><h1>Boolflix</h1></a>
+        </div>
 
-    <div id="target-film-container" class="film-container">
-    </div>
+        <div class="header-input">
+          <input id="cerca-film" type="text" name="ricerca-film" value="" placeholder="Search film or tv-series">
+          <i id="btn-film" class="fas fa-search"></i>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div id="target-film-container" class="film-container">
+      </div>
+
+    </main>
 
 
     <script src="script.js" charset="utf-8"></script>

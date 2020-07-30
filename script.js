@@ -2,8 +2,18 @@
 function searchInInput() {
 
   var searchBtn = $('#btn-film');
+  searchBtn.click(clickBtn);
 
-  searchBtn.click(function() {
+
+  // attivazione del btn anche alla pressione di invio
+  $(document).keydown(function() {
+    if (event.which == 13) {
+      clickBtn();
+    }
+  });
+
+
+  function clickBtn() {
     var valueInput = $('#cerca-film').val();
     var target = $('#target-film-container');
     target.text('');
@@ -14,6 +24,14 @@ function searchInInput() {
 
     $('#cerca-film').val('');
 
+  }
+}
+
+function refreshPage() {
+  var titlePage = $('#title-page');
+
+  titlePage.click(function() {
+    location.reload();
   });
 }
 
@@ -58,12 +76,16 @@ function printFilm(movies) {
     var vote = Math.ceil(movie['vote_average'] / 2);
 
     var poster = movie['poster_path'];
-    movie['cover'] = '<img class="cover-img" alt="image not found" src="https://image.tmdb.org/t/p/w342' + poster + '">'
+    movie['poster'] = printPoster(poster);
 
     movie['stars'] = ratings(vote);
 
     var lang = movie['original_language'];
     movie['flag'] = flags(lang);
+
+    var overview = movie['overview'];
+    movie['text_overview'] = printOverview(overview);
+
 
     var filmInfoHTML = compiled(movie);
     target.append(filmInfoHTML);
@@ -72,6 +94,7 @@ function printFilm(movies) {
 
   }
 }
+
 
 function callApiForTv(valueInput) {
 
@@ -113,14 +136,16 @@ function printTvSeries(tvSeries) {
     var serie = tvSeries[i];
 
     var poster = serie['poster_path'];
-    serie['cover'] = '<img class="cover-img" alt="image not found" src="https://image.tmdb.org/t/p/w342' + poster + '">'
-
+    serie['poster'] = printPoster(poster);
 
     var vote = Math.ceil(serie['vote_average'] / 2);
     serie['stars'] = ratings(vote);
 
     var lang = serie['original_language'];
     serie['flag'] = flags(lang);
+
+    var overview = serie['overview'];
+    serie['text_overview'] = printOverview(overview);
 
     var tvHTML = compiled(serie)
     target.append(tvHTML);
@@ -139,7 +164,7 @@ function ratings(vote) {
 
   for (var k = 0; k < 5; k++) {
     if (k < vote) {
-      starsHTML += '<i class="fas fa-star"></i>'
+      starsHTML += '<i class="fas fa-star gold"></i>'
     } else {
       starsHTML += '<i class="far fa-star"></i>'
     }
@@ -157,10 +182,27 @@ function flags(lang) {
 
 }
 
+function printPoster(poster) {
+  if (poster) {
+    // return '<img class="cover-img" src="https://image.tmdb.org/t/p/w342' + poster + '">';
+    return `<img class="cover-img" src="https://image.tmdb.org/t/p/w342${poster}">`;
+  }
+
+  return '<img class="cover-img" src="img/not-found.jpg">';
+
+}
+
+function printOverview(overview) {
+  if (overview) {
+    return overview;
+  }
+  return 'Nothing to say';
+}
+
 
 
 
 $(document).ready(function() {
   searchInInput();
-
+  refreshPage();
 });

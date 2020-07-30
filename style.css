@@ -2,27 +2,80 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
-input {
-  margin: 20px;
-  padding: 10px;
+header {
+  height: 70px;
+  background-color: #262626;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+header .header-content {
+  width: 95%;
+  height: 100%;
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#cerca-film {
+  padding: 5px;
+  outline: none;
+}
+
+#btn-film {
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+header a {
+  text-decoration: none;
+}
+
+header h1 {
+  color: #b30000;
+}
+
+
+
+main {
+  background-color: #595959;
+  height: 100vh;
+  overflow-y: auto;
+  padding-top: 120px;
 }
 
 .film-container {
-  width: 100%;
-  height: 100vh;
+  width: 95%;
+  height: 100%;
+  margin: auto;
+
   display: flex;
   flex-wrap: wrap;
-  overflow-y: auto;
 }
 
 .film-container .poster {
   width: calc(100% / 8);
-  height: calc(100% / 3);
-  border: 1px solid black;
+  height: 250px;
+  border: 1px solid #fff;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+
   position: relative;
+
 }
+
+
 
 .cover-img {
   width: 100%;
@@ -43,8 +96,13 @@ input {
 
 .info {
   position: absolute;
-  top: 10px;
-  left: 5px;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  overflow-y: auto;
 
   color: #fff;
 
@@ -63,7 +121,15 @@ input {
   margin-bottom: 5px;
 }
 
-.fas {
+.info li span {
+  font-weight: bolder;
+}
+
+.info h4 {
+  margin-bottom: 5px;
+}
+
+.gold {
   color: gold;
 }
 
@@ -71,4 +137,14 @@ input {
 img.flag {
   width: 30px;
   height: 20px;
+}
+
+
+/* media query tablet*/
+@media all and (max-width: 900px) {
+  .film-container .poster {
+    width: 40%;
+    height: 350px;
+  }
+
 }
