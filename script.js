@@ -85,6 +85,9 @@ function printFilm(movies) {
 
     var overview = movie['overview'];
     movie['text_overview'] = printOverview(overview);
+    if (overview.length > 250) {
+      movie['text_overview'] = overview.substring(0, 250) + '...';
+    } 
 
 
     var filmInfoHTML = compiled(movie);
@@ -146,6 +149,10 @@ function printTvSeries(tvSeries) {
 
     var overview = serie['overview'];
     serie['text_overview'] = printOverview(overview);
+
+    if (overview.length > 250) {
+      serie['text_overview'] = overview.substring(0, 250) + '...';
+    }
 
     var tvHTML = compiled(serie)
     target.append(tvHTML);

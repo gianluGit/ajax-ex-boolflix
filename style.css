@@ -27,8 +27,12 @@ header .header-content {
 }
 
 #cerca-film {
-  padding: 5px;
+  padding: 8px;
   outline: none;
+  background-color: #262626;
+  width: 200px;
+  border: 1px solid #fff;
+  color: #fff;
 }
 
 #btn-film {
@@ -64,10 +68,10 @@ main {
 }
 
 .film-container .poster {
-  width: calc(100% / 8);
-  height: 250px;
+  width: 20%;
+  height: 350px;
   border: 1px solid #fff;
-  margin-left: 20px;
+  margin-right: 15px;
   margin-bottom: 20px;
   cursor: pointer;
 
@@ -114,7 +118,9 @@ main {
   display: block;
 }
 
-
+.info {
+  font-size: 13px;
+}
 
 .info ul li {
   list-style: none;
@@ -127,6 +133,7 @@ main {
 
 .info > h3 {
   margin-bottom: 8px;
+  font-size: 18px;
 }
 
 .info ul li > h4 {
