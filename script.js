@@ -87,7 +87,12 @@ function printFilm(movies) {
     movie['text_overview'] = printOverview(overview);
     if (overview.length > 250) {
       movie['text_overview'] = overview.substring(0, 250) + '...';
-    } 
+    }
+
+
+    if (movie['title'] == movie['original_title']) {
+      $('li.original-title').hide();
+    }
 
 
     var filmInfoHTML = compiled(movie);
@@ -153,6 +158,11 @@ function printTvSeries(tvSeries) {
     if (overview.length > 250) {
       serie['text_overview'] = overview.substring(0, 250) + '...';
     }
+
+    if (serie['name'] == serie['original_name']) {
+      $('li.original-title').hide();
+    }
+
 
     var tvHTML = compiled(serie)
     target.append(tvHTML);
