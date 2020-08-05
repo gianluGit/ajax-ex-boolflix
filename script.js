@@ -85,8 +85,8 @@ function printFilm(movies) {
 
     var overview = movie['overview'];
     movie['text_overview'] = printOverview(overview);
-    if (overview.length > 250) {
-      movie['text_overview'] = overview.substring(0, 250) + '...';
+    if (overview.length > 150) {
+      movie['text_overview'] = overview.substring(0, 150) + '...';
     }
 
 
@@ -94,13 +94,64 @@ function printFilm(movies) {
       $('li.original-title').hide();
     }
 
-
     var filmInfoHTML = compiled(movie);
     target.append(filmInfoHTML);
 
 
+    printFilmCast(movie);
+
+
+
+
 
   }
+}
+
+function printFilmCast(movie) {
+
+  var id = movie['id'];
+
+  $.ajax({
+    url: `https://api.themoviedb.org/3/movie/${id}/credits`,
+    method: 'GET',
+    data: {
+      'api_key': '13905809c368b789098db62d2afec412',
+    },
+    success: function(data, state) {
+      var cast = data['cast'];
+      console.log(cast);
+      var actors = '';
+
+      for (var i = 0; i < cast.length; i++) {
+        // console.log(cast[i]);
+        if (i < 5) {
+
+          var actor = cast[i]['name'];
+          actors += actor + ' ';
+
+        }
+
+      }
+      $(`.poster[data-id="${id}"]`).find('li.print-actors').append(actors);
+      // movie['cast'] = actors;
+
+
+
+
+      console.log(actors);
+      // var template = $('#template-film').html();
+      // var compiled = Handlebars.compile(template);
+      // var target = $('#target-film-container');
+      //
+      // var filmInfoHTML = compiled(movie);
+      // target.append(filmInfoHTML);
+
+
+    },
+    error: function(err) {
+      console.log('err', err);
+    }
+  });
 }
 
 
@@ -155,21 +206,76 @@ function printTvSeries(tvSeries) {
     var overview = serie['overview'];
     serie['text_overview'] = printOverview(overview);
 
-    if (overview.length > 250) {
-      serie['text_overview'] = overview.substring(0, 250) + '...';
+    if (overview.length > 150) {
+      serie['text_overview'] = overview.substring(0, 150) + '...';
     }
 
     if (serie['name'] == serie['original_name']) {
       $('li.original-title').hide();
     }
 
-
     var tvHTML = compiled(serie)
     target.append(tvHTML);
 
 
+    printTvCast(serie);
+
+
+
 
   }
+
+}
+
+function printTvCast(serie) {
+  var id = serie['id'];
+
+  $.ajax({
+    url: `https://api.themoviedb.org/3/tv/${id}/credits`,
+    method: 'GET',
+    data: {
+      'api_key': '13905809c368b789098db62d2afec412',
+    },
+    success: function(data, state) {
+      var cast = data['cast'];
+      console.log(cast);
+      var actors = '';
+
+      for (var i = 0; i < cast.length; i++) {
+        // console.log(cast[i]);
+        if (i < 5) {
+          var actor = cast[i]['name'];
+          actors += actor + ' ';
+
+        }
+
+      }
+      $(`.poster[data-id="${id}"]`).find('li.print-actors').append(actors);
+
+
+
+
+      // serie['cast'] = actors;
+      console.log(actors);
+
+
+
+
+
+
+      // var template = $('#template-Tv').html();
+      // var compiled = Handlebars.compile(template);
+      // var target = $('#target-film-container');
+      //
+      // var tvHTML = compiled(serie)
+      // target.append(tvHTML);
+
+
+    },
+    error: function(err) {
+      console.log('err', err);
+    }
+  });
 
 }
 
