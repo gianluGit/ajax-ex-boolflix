@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 
     <script id="template-film" type="text/x-handlebars-template">
-      <div class="poster" data-id="{{id}}">
+      <div class="poster" data-id="{{id}}" data-genre="{{genre_ids}}">
         {{{poster}}}
 
         <div class="layover">
@@ -25,6 +25,7 @@
             <li><h4>Vote</h4> {{{stars}}}</li>
             <li><h4>Overview</h4> {{{text_overview}}}</li>
             <li class="print-actors"><h4>Actors</h4></li>
+            <!-- <li class="print-genres"><h4>Genres</h4></li> -->
           </ul>
         </div>
 
@@ -33,7 +34,7 @@
     </script>
 
     <script id="template-Tv" type="text/x-handlebars-template">
-      <div class="poster" data-id="{{id}}">
+      <div class="poster" data-id="{{id}}" data-genre="{{genre_ids}}">
         {{{poster}}}
         <div class="layover">
         </div>
@@ -47,6 +48,7 @@
             <li><h4>Vote</h4> {{{stars}}}</li>
             <li><h4>Overview</h4> {{{text_overview}}}</li>
             <li class="print-actors"><h4>Actors</h4></li>
+            <!-- <li class="print-tvGenres"><h4>Genres</h4></li> -->
           </ul>
         </div>
 
@@ -71,6 +73,9 @@
     </header>
 
     <main>
+      <h1 id="home">Raccomanded for you</h1>
+      <h1 id="search">Results of your search</h1>
+      
       <div id="target-film-container" class="film-container">
       </div>
 

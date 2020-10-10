@@ -1,3 +1,13 @@
+function getHomePage() {
+  var arrRand = ['Batman', 'Avengers', 'Ritorno al futuro', 'Horror', 'Natale', 'Comedy', 'Netflix'];
+  var valueInput = arrRand[Math.floor(Math.random() * arrRand.length)];
+  $('#search').hide();
+
+  callApiForFilm(valueInput);
+
+
+}
+
 
 function searchInInput() {
 
@@ -14,6 +24,9 @@ function searchInInput() {
 
 
   function clickBtn() {
+    $('#home').hide();
+    $('#search').show();
+
     var valueInput = $('#cerca-film').val();
     var target = $('#target-film-container');
     target.text('');
@@ -100,11 +113,49 @@ function printFilm(movies) {
 
     printFilmCast(movie);
 
-
+    // printFilmGenre(movie);
 
 
 
   }
+}
+
+function printFilmGenre(movie) {
+
+  $.ajax({
+    url: 'https://api.themoviedb.org/3/genre/movie/list',
+    method: 'GET',
+    data: {
+      'api_key': '13905809c368b789098db62d2afec412'
+    },
+    success: function(data, state) {
+      var genreId = movie['genre_ids'];
+      console.log(genreId);
+      var genres = data['genres'];
+
+
+      var dataGen = $(`.poster[data-genre="${genreId}"]`);
+
+      for (var i = 0; i < genres.length; i++) {
+        var nameGenre = genres[i]['name'];
+        var idGenre = genres[i]['id'];
+
+        if (genreId.includes(idGenre)) {
+          dataGen.find('li.print-genres').append(nameGenre + ' ');
+        }
+      }
+
+
+
+
+
+
+
+    },
+    error: function(err) {
+      console.log('err', err);
+    }
+  });
 }
 
 function printFilmCast(movie) {
@@ -119,11 +170,9 @@ function printFilmCast(movie) {
     },
     success: function(data, state) {
       var cast = data['cast'];
-      console.log(cast);
       var actors = '';
 
       for (var i = 0; i < cast.length; i++) {
-        // console.log(cast[i]);
         if (i < 5) {
 
           var actor = cast[i]['name'];
@@ -133,18 +182,10 @@ function printFilmCast(movie) {
 
       }
       $(`.poster[data-id="${id}"]`).find('li.print-actors').append(actors);
-      // movie['cast'] = actors;
 
 
 
 
-      console.log(actors);
-      // var template = $('#template-film').html();
-      // var compiled = Handlebars.compile(template);
-      // var target = $('#target-film-container');
-      //
-      // var filmInfoHTML = compiled(movie);
-      // target.append(filmInfoHTML);
 
 
     },
@@ -220,10 +261,48 @@ function printTvSeries(tvSeries) {
 
     printTvCast(serie);
 
-
+    // printTvGenre(serie);
 
 
   }
+
+}
+
+function printTvGenre(serie) {
+  $.ajax({
+    url: 'https://api.themoviedb.org/3/genre/tv/list',
+    method: 'GET',
+    data: {
+      'api_key': '13905809c368b789098db62d2afec412'
+    },
+    success: function(data, state) {
+      var genreId = serie['genre_ids'];
+      console.log(genreId);
+      var genres = data['genres'];
+
+
+      var dataGen = $(`.poster[data-genre="${genreId}"]`);
+
+      for (var i = 0; i < genres.length; i++) {
+        var nameGenre = genres[i]['name'];
+        var idGenre = genres[i]['id'];
+
+        if (genreId.includes(idGenre)) {
+          dataGen.find('li.print-tvGenres').append(nameGenre + ' ');
+        }
+      }
+
+
+
+
+
+
+
+    },
+    error: function(err) {
+      console.log('err', err);
+    }
+  });
 
 }
 
@@ -238,11 +317,9 @@ function printTvCast(serie) {
     },
     success: function(data, state) {
       var cast = data['cast'];
-      console.log(cast);
       var actors = '';
 
       for (var i = 0; i < cast.length; i++) {
-        // console.log(cast[i]);
         if (i < 5) {
           var actor = cast[i]['name'];
           actors += actor + ' ';
@@ -255,20 +332,12 @@ function printTvCast(serie) {
 
 
 
-      // serie['cast'] = actors;
-      console.log(actors);
 
 
 
 
 
 
-      // var template = $('#template-Tv').html();
-      // var compiled = Handlebars.compile(template);
-      // var target = $('#target-film-container');
-      //
-      // var tvHTML = compiled(serie)
-      // target.append(tvHTML);
 
 
     },
@@ -326,6 +395,7 @@ function printOverview(overview) {
 
 
 $(document).ready(function() {
+  getHomePage();
   searchInInput();
   refreshPage();
 });

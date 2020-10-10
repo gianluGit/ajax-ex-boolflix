@@ -58,12 +58,19 @@ main {
   padding-top: 120px;
 }
 
+main h1 {
+  color: #fff;
+  padding-left: 20px;
+}
+
 .film-container {
   width: 95%;
   height: 100%;
   margin: auto;
+  padding-top: 50px;
 
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
