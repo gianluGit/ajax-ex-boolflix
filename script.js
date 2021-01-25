@@ -1,9 +1,54 @@
 function getHomePage() {
-  var arrRand = ['Batman', 'Avengers', 'Ritorno al futuro', 'Horror', 'Natale', 'Comedy', 'Netflix'];
-  var valueInput = arrRand[Math.floor(Math.random() * arrRand.length)];
-  $('#search').hide();
+  var arrFilmRand = ['Batman', 'Avengers', 'star wars', 'Horror', 'Natale', 'Comedy', 'pixar'];
+  var filmHome = arrFilmRand[Math.floor(Math.random() * arrFilmRand.length)];
 
-  callApiForFilm(valueInput);
+  callApiForFilm(filmHome);
+
+  var arrSerieRand = ['the office', 'disney', 'star wars', 'lost', 'stranger', 'marvel'];
+  var serieHome = arrSerieRand[Math.floor(Math.random() * arrSerieRand.length)];
+
+  callApiForTv(serieHome);
+
+}
+
+function scrollContainer() {
+  //film container
+  var arroRFilm = $('.arrow-right.film');
+
+  arroRFilm.click(function() {
+    var filmContainer = $('.film-container');
+    var leftPos = filmContainer.scrollLeft();
+    filmContainer.animate({scrollLeft: leftPos + 600}, 300);
+
+  });
+
+  var arroLFilm = $('.arrow-left.film');
+
+  arroLFilm.click(function() {
+    var filmContainer = $('.film-container');
+    var leftPos = filmContainer.scrollLeft();
+    filmContainer.animate({scrollLeft: leftPos - 600}, 300);
+
+  });
+
+  // serie container
+  var arroRSerie = $('.arrow-right.serie');
+
+  arroRSerie.click(function() {
+    var serieContainer = $('.serie-container');
+    var leftPos = serieContainer.scrollLeft();
+    serieContainer.animate({scrollLeft: leftPos + 600}, 300);
+
+  });
+
+  var arroLSerie = $('.arrow-left.serie');
+
+  arroLSerie.click(function() {
+    var serieContainer = $('.serie-container');
+    var leftPos = serieContainer.scrollLeft();
+    serieContainer.animate({scrollLeft: leftPos - 600}, 300);
+
+  });
 
 
 }
@@ -24,12 +69,12 @@ function searchInInput() {
 
 
   function clickBtn() {
-    $('#home').hide();
-    $('#search').show();
 
     var valueInput = $('#cerca-film').val();
-    var target = $('#target-film-container');
-    target.text('');
+    var targetFilm = $('#target-film-container');
+    var targetSerie = $('#target-serie-container');
+    targetFilm.text('');
+    targetSerie.text('');
 
 
     callApiForFilm(valueInput);
@@ -230,7 +275,7 @@ function callApiForTv(valueInput) {
 function printTvSeries(tvSeries) {
   var template = $('#template-Tv').html();
   var compiled = Handlebars.compile(template);
-  var target = $('#target-film-container');
+  var target = $('#target-serie-container');
 
   for (var i = 0; i < tvSeries.length; i++) {
     var serie = tvSeries[i];
@@ -379,8 +424,7 @@ function printPoster(poster) {
     // return '<img class="cover-img" src="https://image.tmdb.org/t/p/w342' + poster + '">';
     return `<img class="cover-img" src="https://image.tmdb.org/t/p/w342${poster}">`;
   }
-
-  return '<img class="cover-img" src="img/not-found.jpg">';
+  return '<img class="cover-img" src="img/imgNotFound.png">';
 
 }
 
@@ -398,4 +442,5 @@ $(document).ready(function() {
   getHomePage();
   searchInInput();
   refreshPage();
+  scrollContainer();
 });
