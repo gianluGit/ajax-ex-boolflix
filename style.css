@@ -7,7 +7,7 @@
 
 header {
   height: 70px;
-  background-color: #262626;
+  background-color: #1a252f;
 
   position: fixed;
   top: 0;
@@ -29,7 +29,7 @@ header .header-content {
 #cerca-film {
   padding: 8px;
   outline: none;
-  background-color: #262626;
+  background-color: #1a252f;
   width: 200px;
   border: 1px solid #fff;
   color: #fff;
@@ -46,13 +46,13 @@ header a {
 }
 
 header h1 {
-  color: #b30000;
+  color: #fff;
 }
 
 
 
 main {
-  background-color: #262626;
+  background-color: #10181f;
   overflow-y: auto;
   padding-top: 120px;
 }
